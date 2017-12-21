@@ -1,12 +1,13 @@
 require 'pry'
 
+
 class Contact
 
 attr_accessor :first_name, :last_name, :email, :notes
 attr_reader :id
 
   @@contacts = []
-  @@next_id = 100
+  @@next_id  = 100
 
   # This method should initialize the contact's attributes
 
@@ -51,21 +52,30 @@ attr_reader :id
   # 1. which of the contact's attributes you want to update
   # 2. the new value for that attribute
   # and then make the appropriate change to the contact
-  def update(attribute, new_info)
-    # if attribute == "first_name"
-    #   @first_name = new_info
-    # end
-    case attribute
-    when 'first_name'
-      @first_name = new_info
-    when 'last_name'
-      @last_name = new_info
-    when 'email'
-      @email = new_info
-    when 'notes'
-      @notes = new_info
-    else
-      puts "i dont know what you're looking for"
+  def self.update(id, attribute, new_info)
+    @@contacts.each do |contact|
+      if contact.id  == id
+        case attribute
+
+        when 'first name'
+          @first_name = new_info
+          contact.first_name = new_info
+        when 'last name'
+          @last_name = new_info
+          contact.last_name = new_info
+        when 'email'
+          @email = new_info
+          contact.email = new_info
+        when 'notes'
+          @notes = new_info
+          contact.notes = new_info
+        else
+          puts "i dont know what you're looking for"
+        end
+                  # binding.pry
+      else
+        return puts 'did not work!'
+      end
     end
   #   send "#{attribute}=", new_info
   # rescue
@@ -80,11 +90,11 @@ attr_reader :id
   def self.find_by(attribute, value)
     @@contacts.each do |contact|
       case attribute
-      when 'first_name'
+      when 'first name'
         if value == contact.first_name
           return contact
         end
-      when 'last_name'
+      when 'last name'
         if value == contact.last_name
          return contact
        end
@@ -108,9 +118,9 @@ attr_reader :id
 
   # This method should delete the contact
   # HINT: Check the Array class docs for built-in methods that might be useful here
-  def delete
+  def self.delete(id)
     @@contacts.each do |contact|
-      if contact == self
+      if id == contact.id
         @@contacts.delete(contact)
       end
     end
