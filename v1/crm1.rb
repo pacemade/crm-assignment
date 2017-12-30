@@ -95,6 +95,10 @@ class CRM
 
 end
 
-at_exit do
-  ActiveRecord::Base.connection.close
-end
+puts 'Nom pl0x'
+
+check = gets.chomp
+
+crm = CRM.new(check)
+
+crm.main_menu
