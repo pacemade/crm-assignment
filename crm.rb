@@ -40,43 +40,49 @@ class CRM
   end
 
   def add_new_contact
-    print 'Enter First Name:'
+    puts 'Enter First Name:'
     first_name = gets.chomp
 
-    print 'Enter Last Name:'
+    puts 'Enter Last Name:'
     last_name = gets.chomp
 
-    print 'Enter Email Address:'
+    puts 'Enter Email Address:'
     email = gets.chomp
 
-    print 'Enter a Note:'
-    notes = gets.chomp
+    puts 'Enter a Note:'
+    note = gets.chomp
 
-    Contact.create(first_name, last_name, email, notes)
+    contact = Contact.create(
+      first_name: first_name,
+      last_name:  last_name,
+      email:      email,
+      note:       note
+    )
 
-    p 'Added!'
+    puts 'Added!'
   end
 
   def modify_existing_contact
-    p 'What id are you looking to modify?'
+    puts 'What id are you looking to modify?'
     id = gets.to_i
 
-    p 'What attribute are you looking to modify?'
+    puts 'What attribute are you looking to modify?'
     attribute = gets.chomp
 
-    p 'What are you looking to replace this with?'
+    puts 'What are you looking to replace this with?'
     new_info = gets.chomp
 
-    Contact.update(id, attribute, new_info)
+    contact = Contact.find(id)
+    contact.update_attributes(attribute => new_info)
   end
 
   def delete_contact
-    p 'Which id are you looking to delete?'
+    puts 'Which id are you looking to delete?'
     id = gets.to_i
 
     Contact.delete(id)
 
-    p 'Deleted!'
+    puts 'Deleted!'
   end
 
   def display_all_contacts
@@ -84,16 +90,18 @@ class CRM
   end
 
   def search_by_attribute
-    print 'Attribute?'
+    puts 'Attribute?'
     attribute = gets.chomp
 
-    print "What is the #{attribute}?"
+    puts "What is the #{attribute}?"
     value = gets.chomp
 
-    p Contact.find_by(attribute, value)
+    p Contact.find_by(attribute => value)
   end
 
 end
+
+lol = CRM.new("lol").main_menu
 
 at_exit do
   ActiveRecord::Base.connection.close

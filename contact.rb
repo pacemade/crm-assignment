@@ -1,3 +1,5 @@
+gem "activerecord", "=4.2.10"
+
 require 'pry'
 require 'active_record'
 require 'mini_record'
@@ -19,3 +21,7 @@ class Contact < ActiveRecord::Base
 end
 
 Contact.auto_upgrade!
+
+at_exit do
+  ActiveRecord::Base.connection.close
+end
